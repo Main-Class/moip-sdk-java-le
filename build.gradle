@@ -11,6 +11,10 @@ description = "Moip v2 SDK"
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+plugins {
+    id("maven-publish")
+}
+
 repositories {
     mavenCentral()
 }
@@ -47,9 +51,7 @@ artifacts {
 signing {
     sign configurations.archives
 }
-plugins {
-    id("maven-publish")
-}
+
 publishing {
     repositories {
         maven {
