@@ -47,6 +47,26 @@ artifacts {
 signing {
     sign configurations.archives
 }
+plugins {
+    id("maven-publish")
+}
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Main-Class/moip-sdk-java-le")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
 
 uploadArchives {
     repositories {
