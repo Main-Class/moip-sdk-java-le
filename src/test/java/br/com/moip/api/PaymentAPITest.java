@@ -176,7 +176,7 @@ public class PaymentAPITest {
         assertEquals("https://checkout-sandbox.moip.com.br/boleto/PAY-0UQ9BTLOXCRM/print", createdPayment.getLinks().payBoletoPrintLink());
     }
 
-    @Play("payments/create_mpos_credit_payment")
+    @Play("payments/create_mpos_payment")
     @Test
     public void testCreateMposCreditRequest() {
         Payment createdPayment = api.create(
@@ -189,7 +189,35 @@ public class PaymentAPITest {
                 )
                 .fundingInstrument(new FundingInstrumentRequest()
                     .mposCreditCard(new MposRequest()
-                        .PinpadId("D180")
+                                        .PinpadId("D180")
+                                        .transactionCode("code")
+                    )
+                )
+        );
+
+        assertEquals(createdPayment.getFundingInstrument().getMpos().getTransactionCode(), "code");
+        assertEquals(createdPayment.getId(), "PAY-1TUOVJ3D18NM");
+        assertEquals(createdPayment.getStatus(), PaymentStatus.WAITING);
+        assertEquals(createdPayment.getFundingInstrument().getMpos().getPinpadId(), "D180-64000786");
+        assertEquals(createdPayment.getGeolocation().getLatitude(), -33.867, 0);
+        assertEquals(createdPayment.getGeolocation().getLongitude(), 151.206,0);
+    }
+
+    @Play("payments/create_mpos_payment")
+    @Test
+    public void testCreateMposDebitRequest() {
+        Payment createdPayment = api.create(
+            new PaymentRequest()
+                .orderId("ORD-GOHHIF4Z6PLV")
+                .installmentCount(1)
+                .geolocation(new GeolocationRequest()
+                    .latitude(-33.867)
+                    .longitude(151.206)
+                )
+                .fundingInstrument(new FundingInstrumentRequest()
+                    .mposDebitCard(new MposRequest()
+                                        .PinpadId("D180")
+                                        .transactionCode("code")
                     )
                 )
         );

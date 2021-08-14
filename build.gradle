@@ -4,7 +4,7 @@ apply plugin: 'signing'
 
 group = 'br.com.moip'
 archivesBaseName = "java-sdk"
-version = '4.2.0'
+version = '4.7.3'
 
 description = "Moip v2 SDK"
 
@@ -46,6 +46,26 @@ artifacts {
 
 signing {
     sign configurations.archives
+}
+plugins {
+    id("maven-publish")
+}
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Main-Class/moip-sdk-java-le")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
 }
 
 uploadArchives {

@@ -81,7 +81,7 @@ public class TransferApiTest {
         assertEquals("TRANSFER_TO_BANK_ACCOUNT", transfer.getEntries().get(0).getType());
         assertEquals(-500, transfer.getEntries().get(0).getGrossAmount());
         assertEquals(260863, transfer.getEntries().get(0).getMoipAccountId());
-        assertEquals(36714066, transfer.getEntries().get(0).getId());
+        assertEquals("36714066", transfer.getEntries().get(0).getId());
         assertEquals(1, transfer.getEntries().get(0).getInstallment().getAmount());
         assertEquals(1, transfer.getEntries().get(0). getInstallment().getNumber());
         assertEquals("APP-QGAGZRIX1CUF", transfer.getEntries().get(0).getReferences().get(0).getValue());

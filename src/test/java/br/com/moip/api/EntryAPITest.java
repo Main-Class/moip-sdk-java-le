@@ -42,7 +42,7 @@ public class EntryAPITest {
         assertEquals(2000, entry.getGrossAmount());
         assertEquals(0, entry.getMoipAccountId());
         assertEquals("2017-08-24T21:20:08.000Z", entry.getUpdatedAt());
-        assertEquals(36523041, entry.getId());
+        assertEquals("36523041", entry.getId());
         assertEquals(1, entry.getInstallment().getAmount());
         assertEquals(1, entry.getInstallment().getNumber());
         assertEquals("seu_identificador_proprio", entry.getReferences().get(0).getValue());
